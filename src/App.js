@@ -3,25 +3,32 @@ import React, { Component } from 'react';
 class App extends Component {
   constructor() {
     super();
-    this.state = { currentEvent: '---' }
-    this.update = this.update.bind(this);
+    this.state = { a: 'hello', b: 'world'};
   }
 
   update(e) {
-    this.setState({ currentEvent: e.type });
+    this.setState({
+      a: this.a.value,
+      b: this.refs.b.value
+    })
   }
 
   render() {
-    return(<div>
-      <textarea
-        onKeyPress = {this.update}
-        onCut = {this.update}
-        onCopy = {this.update}
-        onPaste = {this.update}
-        cols="30"
-        rows="10" />
-      <h1>{this.state.currentEvent}</h1>
-    </div>);
+    return(
+      <div>
+        <input
+          ref={ x => this.a = x }
+          type="text"
+          onChange={this.update.bind(this)}
+        /> {this.state.a}
+        <hr />
+        <input
+          ref="b"
+          type="text"
+          onChange={this.update.bind(this)}
+        /> {this.state.b}
+      </div>
+    );
   }
 }
 
