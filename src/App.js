@@ -6,9 +6,9 @@ class App extends Component {
     this.state = { a: 'hello', b: 'world'};
   }
 
-  update(e) {
+  update() {
     this.setState({
-      a: this.a.value,
+      a: this.cat.refs.input.value,
       b: this.refs.b.value
     })
   }
@@ -16,10 +16,9 @@ class App extends Component {
   render() {
     return(
       <div>
-        <input
-          ref={ x => this.a = x }
-          type="text"
-          onChange={this.update.bind(this)}
+        <Input
+          ref={ component => this.cat = component }
+          update={this.update.bind(this)}
         /> {this.state.a}
         <hr />
         <input
@@ -29,6 +28,16 @@ class App extends Component {
         /> {this.state.b}
       </div>
     );
+  }
+}
+
+class Input extends Component {
+  render() {
+    return(
+      <div>
+        <input ref="input" type="text" onChange={this.props.update} />
+      </div>
+    )
   }
 }
 
